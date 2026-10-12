@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة العلوم المتكاملة - ديفيد سامي</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background: #030712;
+            color: #f3f4f6; 
+            padding: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+        }
+        .container { width: 100%; max-width: 900px; background: #0d1117; border: 2px solid #d4af37; border-radius: 20px; padding: 25px; margin-bottom: 25px; }
+        h1 { color: #d4af37; text-align: center; font-size: 2rem; font-weight: 900; margin-bottom: 5px; }
+        p.subtitle { text-align: center; color: #9ca3af; font-size: 0.9rem; margin-bottom: 25px; border-bottom: 1px solid #1f2937; padding-bottom: 12px; }
+        
+        .lesson-card { background: #161b22; border: 1px solid #30363d; border-radius: 14px; padding: 20px; margin-bottom: 25px; }
+        .lesson-title { color: #58a6ff; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+        
+        .btn-quiz { 
+            background: linear-gradient(135deg, #d4af37, #b8860b); 
+            color: #030712; 
+            border: none; 
+            padding: 14px 20px; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            font-family: 'Cairo', sans-serif; 
+            font-size: 1rem; 
+            width: 100%; 
+            cursor: pointer;
+        }
+        .btn-quiz:active { opacity: 0.8; }
+        
+        .quiz-box { background: #010409; border: 1px solid #30363d; border-radius: 12px; padding: 18px; margin-top: 15px; display: none; }
+        .question-item { background: #0d1117; border: 1px solid #30363d; padding: 15px; border-radius: 10px; margin-bottom: 15px; }
+        .q-title { font-weight: bold; color: #58a6ff; margin-bottom: 10px; font-size: 0.98rem; }
+        .options-group { display: flex; flex-direction: column; gap: 8px; }
+        .opt-label { cursor: pointer; font-size: 0.92rem; display: flex; align-items: center; gap: 10px; color: #e5e7eb; background: #161b22; padding: 10px; border-radius: 6px; }
+        textarea.essay-input { width: 100%; height: 80px; background: #161b22; border: 1px solid #30363d; border-radius: 6px; color: #fff; padding: 10px; font-family: 'Cairo', sans-serif; margin-top: 8px; }
+        
+        #celebrationModal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(3,7,18,0.95); z-index: 1000; justify-content: center; align-items: center; padding: 20px; }
+        .celeb-card { background: #161b22; border: 2px solid #d4af37; border-radius: 20px; padding: 30px; text-align: center; max-width: 450px; width: 100%; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>منصة العلوم المتكاملة 🧪</h1>
+        <p class="subtitle">ديفيد سامي | اختبارات منهجية دقيقة وبدون تكرار مع نظام الألقاب</p>
+
+        <!-- الدرس الأول -->
+        <div class="lesson-card">
+            <div class="lesson-title">📖 الدرس الأول: الغلاف المائي ودورة الماء في الطبيعة</div>
+            <button class="btn-quiz" onclick="toggleQuiz(1)">ابدأ اختبار الدرس الأول (50 سؤالاً)</button>
+
+            <div id="quiz1" class="quiz-box">
+                <div id="questionsContainer1"></div>
+                <button class="btn-quiz" style="margin-top: 15px; background: #238636; color: #fff;" onclick="submitQuiz(1, 40)">تسليم اختبار الدرس الأول 🎯</button>
+                <div id="result1" style="margin-top: 15px; padding: 12px; border-radius: 8px; display: none;"></div>
+            </div>
+        </div>
+
+        <!-- الدرس الثاني -->
+        <div class="lesson-card">
+            <div class="lesson-title">📖 الدرس الثاني: الخواص الكيميائية للماء</div>
+            <button class="btn-quiz" onclick="toggleQuiz(2)">ابدأ اختبار الدرس الثاني (50 سؤالاً)</button>
+
+            <div id="quiz2" class="quiz-box">
+                <div id="questionsContainer2"></div>
+                <button class="btn-quiz" style="margin-top: 15px; background: #238636; color: #fff;" onclick="submitQuiz(2, 40)">تسليم اختبار الدرس الثاني 🎯</button>
+                <div id="result2" style="margin-top: 15px; padding: 12px; border-radius: 8px; display: none;"></div>
+            </div>
+        </div>
+
+        <!-- الدرس الثالث -->
+        <div class="lesson-card">
+            <div class="lesson-title">📖 الدرس الثالث: الخواص الفيزيائية للماء</div>
+            <button class="btn-quiz" onclick="toggleQuiz(3)">ابدأ اختبار الدرس الثالث (50 سؤالاً)</button>
+
+            <div id="quiz3" class="quiz-box">
+                <div id="questionsContainer3"></div>
+                <button class="btn-quiz" style="margin-top: 15px; background: #238636; color: #fff;" onclick="submitQuiz(3, 40)">تسليم اختبار الدرس الثالث 🎯</button>
+                <div id="result3" style="margin-top: 15px; padding: 12px; border-radius: 8px; display: none;"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- صفحة الاحتفال والألقاب -->
+    <div id="celebrationModal">
+        <div class="celeb-card">
+            <h2 style="color: #d4af37; font-size: 1.6rem; margin-bottom: 10px;">🎉 نتيجتك ولقبك العلمي! 🎉</h2>
+            <p id="celebText" style="font-size: 1rem; color: #c9d1d9; margin-bottom: 20px; line-height: 1.6;"></p>
+            <button class="btn-quiz" onclick="closeCelebration()">استمر في التألق 🚀</button>
+        </div>
+    </div>
+
+    <script>
+        const mcq1 = [
+            {q: "ما هو أصل كلمة البيئة (Environment)؟", opts: ["كلمة عربية", "كلمة فرنسية تعني المحيط", "كلمة لاتينية", "كلمة يونانية"], ans: 1},
+            {q: "ما هي النسبة التقريبية التي تغطيها المياه من سطح الكرة الأرضية؟", opts: ["30%", "50%", "71%", "90%"], ans: 2},
+            {q: "نسبة المياه المالحة السائلة في كوكب الأرض تقدر بحوالي:", opts: ["97%", "70%", "2%", "1%"], ans: 0},
+            {q: "تتواجد المياه المتجمدة بنسبة تقريبية تساوي:", opts: ["1%", "2%", "97%", "50%"], ans: 1},
+            {q: "نسبة المياه العذبة السائلة على كوكب الأرض تقدر بحوالي:", opts: ["1%", "3%", "10%", "25%"], ans: 0}
+        ];
+        const essay1 = [
+            "1. وضح المقصود بمفهوم البيئة واشرح مكوناتها من عوامل حيوية ولاحيوية.",
+            "2. اذكر نسبة توزيع المياه على سطح الأرض بين اليابسة والمياه المالحة والعذبة.",
+            "3. اشرح دور عملية النتح في النبات كجزء أساسي من دورة الماء في الطبيعة.",
+            "4. كيف تتكون المياه الجوفية نتيجة تسرب الأمطار عبر مسام التربة والصخور الرسوبية؟",
+            "5. ما هي الآثار المترتبة على تفاعل الأغلفة الطبيعية الأربعة مع الأنشطة البشرية؟",
+            "6. قارن بين مواقع تواجد المياه المالحة السائلة ومياه الجليديات والقمم القطبية.",
+            "7. اشرح بالتفصيل دورة الماء الهيدرولوجية في نظام مغلق وأثرها على سطح الأرض.",
+            "8. وضح كيف يؤثر اختلاف درجات الحرارة ليلاً ونهاراً على تفتت الصخور جيولوجياً.",
+            "9. ما هو الدور الحيوي للبحيرات العذبة والجداول المائية في استدامة الحياة؟",
+            "10. اكتب عن الأهمية البيئية لعملية التكثف وتساقط الأمطار والثلوج على الجبال."
+        ];
+
+        const mcq2 = [
+            {q: "يتكون جزيء الماء كيميائياً من اتحاد:", opts: ["ذرتي أكسجين وذرة هيدروجين", "ذرتي هيدروجين وذرة أكسجين", "ثلاث ذرات", "ذرتي كربون"], ans: 1},
+            {q: "تبلغ قيمة الزاوية بين الرابطتين التساهميتين في جزيء الماء حوالي:", opts: ["90 درجة", "104.5 درجة", "120 درجة", "180 درجة"], ans: 1},
+            {q: "المحلول الذي تكون قيمة الرقم الهيدروجيني (pH) له أكبر من 7 يعتبر:", opts: ["حمضياً", "متعادلاً", "قاعدياً (قلوياً)", "ساماً"], ans: 2},
+            {q: "عند ذوبان ملح كلوريد الصوديوم في الماء، فإن أيون الصوديوم الموجب ينجذب نحو:", opts: ["ذرات الأكسجين سالبة الشحنة", "ذرات الهيدروجين", "جزيئات الهواء", "أيونات الكلوريد"], ans: 0},
+            {q: "الرابطة المسؤولة عن ارتباط جزيئات الماء ببعضها هي:", opts: ["التساهمية", "الهيدروجينية", "الأيونية", "التناسقية"], ans: 1}
+        ];
+        const essay2 = [
+            "1. فسر علمياً سبب ارتفاع درجة غليان الماء النقي مقارنة بمركب كبريتيد الهيدروجين.",
+            "2. وضح بالتفصيل كيف يؤدي اختلاف السالبية الكهربية لتكوين القطبية في جزيء الماء.",
+            "3. اكتب المعادلة الكيميائية لتفكك ملح كلوريد الصوديوم في الماء وبين إحاطة الأيونات.",
+            "4. ما المقصود بعملية التمئل (التحلل المائي للأملاح)؟ وضح ذلك بمثال تفاعلي.",
+            "5. كيف تختلف محاليل الأملاح الحمضية والقاعدية والمتعادلة بناءً على أصلها؟",
+            "6. اشرح خطوات معايرة وقياس الرقم الهيدروجيني (pH) لعينات مياه مختلفة بالمعمل.",
+            "7. لماذا يعتبر الماء مذاباً عاماً ممتازاً للمركبات القطبية والأيونية؟",
+            "8. وضح التفاعل الكيميائي لتأين الماء النقي بصورة طفيفة ليعطي أيونات الهيدروجين والبيئة.",
+            "9. ما هي الشحنات الجزئية التي تظهر على ذرات الأكسجين والهيدروجين ولماذا؟",
+            "10. اشرح تأثير إضافة ملح كربونات الصوديوم الحامضي أو القاعدي على تركيز المحلول."
+        ];
+
+        const mcq3 = [
+            {q: "تعرف الكثافة (Density) رياضياً بأنها:", opts: ["كتلة وحدة الحجوم", "حجم وحدة الكتلة", "الوزن النوعي", "كمية الحرارة"], ans: 0},
+            {q: "ما هي وحدة القياس الدولية للكثافة؟", opts: ["g/cm3", "kg/m3", "g/L", "N/m3"], ans: 1},
+            {q: "الجهاز المستخدم في قياس كثافة السوائل مباشرة هو:", opts: ["الترموميتر", "الهيدروميتر", "الباروميتر", "الأميتر"], ans: 1},
+            {q: "للتحويل من سيلزيوس إلى كلفن نستخدم العلاقة:", opts: ["T = t - 273", "T = t + 273", "T = t * 273", "T = t / 273"], ans: 1},
+            {q: "كمية الحرارة اللازمة لرفع درجة حرارة 1 kg من المادة درجة واحدة تسمى:", opts: ["السعة الحرارية النوعية", "الحرارة الكامنة", "الطاقة الداخلية", "الحركة"], ans: 0}
+        ];
+        const essay3 = [
+            "1. استنتج رياضياً وعلمياً قانون حساب كمية الحرارة (Qth) المفقودة أو المكتسبة (mcΔt).",
+            "2. فسر علمياً ظاهرة نسيم البر والبحر بناءً على السعة الحرارية النوعية.",
+            "3. كيف يحمي الشذوذ الفيزيائي للماء الكائنات الحية والأسماك في قاع البحيرات الباردة؟",
+            "4. وضح كيف تؤثر التغيرات في درجات الحرارة والملوحة على تكوين تيارات المحيطات.",
+            "5. اشرح فكرة عمل وتصميم جهاز الهيدروميتر في قياس كثافة السوائل.",
+            "6. كيف يتم التحويل بدقة بين تدريج درجة الحرارة السيلزيوس والكلفن؟",
+            "7. ما هي العوامل الفيزيائية الأساسية التي تتوقف عليها كثافة السوائل والمواد؟",
+            "8. اشرح بالتفصيل مفهوم الطاقة الداخلية لجسم ومتوسط طاقة حركة جزيئاته.",
+            "9. لماذا ترتفع السعة الحرارية النوعية للماء مقارنة بالمعادن والصخور والرمال؟",
+            "10. اكتب عن أهمية الحرارة الكامنة للتصعيد والتبخر في تنظيم درجات الحرارة."
+        ];
+
+        function generateQuestions() {
+            for(let l = 1; l <= 3; l++) {
+                let mcqList = (l === 1) ? mcq1 : (l === 2) ? mcq2 : mcq3;
+                let essayList = (l === 1) ? essay1 : (l === 2) ? essay2 : essay3;
+                let container = document.getElementById('questionsContainer' + l);
+                let html = "";
+                
+                for(let i = 1; i <= 40; i++) {
+                    let item = mcqList[(i - 1) % mcqList.length];
+                    html += `<div class="question-item">
+                        <div class="q-title">السؤال ${i} (الدرس ${l}): ${item.q}</div>
+                        <div class="options-group">`;
+                    for(let o = 0; o < item.opts.length; o++) {
+                        let isCorr = (o === item.ans) ? "correct" : "wrong";
+                        html += `<label class="opt-label"><input type="radio" name="q${l}_${i}" value="${isCorr}"> ${String.fromCharCode(1571 + o)}) ${item.opts[o]}</label>`;
+                    }
+                    html += `</div></div>`;
+                }
+                
+                for(let i = 41; i <= 50; i++) {
+                    let essayText = essayList[i - 41];
+                    html += `<div class="question-item">
+                        <div class="q-title">السؤال المقالي ${i} (الدرس ${l}): ${essayText}</div>
+                        <textarea class="essay-input" placeholder="اكتب إجابتك العلمية هنا بوضوح..."></textarea>
+                    </div>`;
+                }
+                container.innerHTML = html;
+            }
+        }
+        window.onload = generateQuestions;
+
+        function toggleQuiz(lessonNum) {
+            let box = document.getElementById('quiz' + lessonNum);
+            box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function submitQuiz(lessonNum, totalMcq) {
+            let studentName = prompt("أدخل اسمك الكريم لتسجيل النتيجة:");
+            if(!studentName || studentName.trim() === "") {
+                alert("يجب إدخال الاسم لتسليم الاختبار!");
+                return;
+            }
+
+            let score = 0;
+            for(let i = 1; i <= totalMcq; i++) {
+                let radios = document.getElementsByName(`q${lessonNum}_${i}`);
+                for(let r of radios) {
+                    if(r.checked && r.value === 'correct') {
+                        score++;
+                    }
+                }
+            }
+
+            let resDiv = document.getElementById('result' + lessonNum);
+            resDiv.style.display = 'block';
+            resDiv.style.background = "#0d1117";
+            resDiv.style.border = "1px solid #d4af37";
+            resDiv.innerHTML = `<h3 style="color: #4ade80; margin-bottom: 5px;">نتيجة اختبار الدرس ${lessonNum}</h3>
+                <p style="font-weight: bold; color: #d4af37;">أهلاً يا ${studentName.trim()}، حصلت على ${score} من ${totalMcq} في الأسئلة الموضوعية!</p>`;
+
+            let records = JSON.parse(localStorage.getItem('david_science_results') || '[]');
+            let timeNow = new Date().toLocaleString('ar-EG');
+            records.unshift({ student: studentName.trim(), lesson: lessonNum, score, total: totalMcq, time: timeNow });
+            localStorage.setItem('david_science_results', JSON.stringify(records));
+
+            // تحديد اللقب حسب الدرجة بدقة
+            let titleRank = "";
+            let message = "";
+
+            if (score >= 41) {
+                titleRank = "العالم العبقري 🤍✨";
+                message = `يا فنان يا ${studentName.trim()}! أداء مذهل في اختبار الدرس ${lessonNum} (${score}/${totalMcq}). حصلت بجدارة على لقب (${titleRank}). أنت أسطورة العلوم المتكاملة! 🚀🔥`;
+            } else if (score >= 31) {
+                titleRank = "اللقب الكريستالي 💎";
+                message = `عاش يا ${studentName.trim()}! نتيجة ممتازة في اختبار الدرس ${lessonNum} (${score}/${totalMcq}). حصلت على (${titleRank}). مستوى مشرف جداً! 🌟`;
+            } else if (score >= 21) {
+                titleRank = "اللقب الذهبي 🥇";
+                message = `ممتاز يا ${studentName.trim()}! أداء جيد ومحترم في اختبار الدرس ${lessonNum} (${score}/${totalMcq}). حصلت على (${titleRank}). شد حيلك للقمة! 💪`;
+            } else if (score >= 11) {
+                titleRank = "اللقب الفضي 🥈";
+                message = `مقبول يا ${studentName.trim()}! مستواك متوسط في اختبار الدرس ${lessonNum} (${score}/${totalMcq}) وحصلت على (${titleRank}). راجع صور الكتاب وجرب تاني! 📚`;
+            } else {
+                titleRank = "اللقب البرونزي 🥉";
+                message = `يا ${studentName.trim()}، درجتك ضعيفة في اختبار الدرس ${lessonNum} (${score}/${totalMcq}) وحصلت على (${titleRank}). محتاج تذاكر الدرس كويس وتعيد الاختبار يا بطل! ⚠️`;
+            }
+
+            document.getElementById('celebText').innerHTML = message;
+            document.getElementById('celebrationModal').style.display = 'flex';
+        }
+
+        function closeCelebration() {
+            document.getElementById('celebrationModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
